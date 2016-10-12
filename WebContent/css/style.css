@@ -1,0 +1,91 @@
+body{
+	background-image: url(../TEMPLE-GREY.jpg);
+}
+td{
+	text-align: center;
+}
+.glyphicon{
+	font-size: 30px;
+	text-shadow: -1px 0 grey, 0 1px grey, 1px 0 grey, 0 -1px grey;
+}
+.glyphicon:hover{
+	text-shadow: -1px 0 green, 0 1px green, 1px 0 green, 0 -1px green;
+	font-size: 35px;
+}
+.square {
+	width: 50px;
+	height: 50px;
+}
+
+.light {
+	//background-color: #4d2800;
+	//background-image: url(../lightBrownMarble.jpg);
+	background: url(../lightBrownMarble.jpg);
+}
+
+.dark {
+	
+	//background-color: #ffc180;
+	//background-image: url(../darkBrownMarble.jpg);
+	background: url(../darkBrownMarble.jpg);
+      
+}
+
+.lightgreen{
+	background: linear-gradient(
+      rgba(0, 255, 0, 0.2), 
+      rgba(0, 255, 0, 0.2)), url(../lightBrownMarble.jpg);
+}
+.darkgreen{
+	background: linear-gradient(
+      rgba(0, 255, 0, 0.2), 
+      rgba(0, 255, 0, 0.2)), url(../darkBrownMarble.jpg);
+}
+.darkred{
+	background: linear-gradient(
+      rgba(255, 0, 0, 0.2), 
+      rgba(255, 0, 0, 0.2)), url(../darkBrownMarble.jpg);
+}
+.lightred{
+	background: linear-gradient(
+      rgba(255, 0, 0, 0.2), 
+      rgba(255, 0, 0, 0.2)), url(../lightBrownMarble.jpg);
+}
+#board {
+	background-color: black;
+	width: 425px;
+	height: 425px;
+	padding: 10px;
+}
+#bhome{
+	/* id selector , id is unique*/
+	background-image: url(../lightBrownMarble.jpg);
+	border: 5px;
+	border-style:inset;
+	padding: 10px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	width: 275px;
+	height: 100px;
+	align: center;
+}
+
+#whome{
+	background-image: url(../darkBrownMarble.jpg);
+	border: 5px;
+	border-style:inset;
+	padding: 10px;
+	margin-top: 5px;
+	width: 275px;
+	height: 100px;
+	align: center;
+}
+
+
+
+.white{
+	color: white;
+}
+.black{
+	color: black;
+}

@@ -1,0 +1,1292 @@
+<!DOCTYPE html>
+<html>
+<!-- Chess-A-Go-Go 										-->
+<!-- Revature LLC - David Reinke 						-->
+<!-- This Chess game uses JavaScript,JQuery,Bootstrap 	-->
+<!-- functions include check, check mate, move help 	--> 
+<!-- bug in checkmate. also minor fixes needed in UI	-->
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+
+<title>Chess-A-Go-Go</title>
+
+<link rel="stylesheet" type="text/css" href="css/style.css">
+
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+</head>
+<body>
+
+	<div class="container">
+		<table>
+			<tr>
+				<td>
+					<button id="new" type="button" class="btn btn-primary">New
+						Game</button>
+				</td><td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</td>
+				<td>
+					<div id="bhome">
+						<table>
+							<tr>
+								<td><div id="btower1home">
+										<div class="glyphicon glyphicon-tower black" id="btower1"></div>
+									</div></td>
+								<td><div id="bknight1home">
+										<div class="glyphicon glyphicon-knight black" id="bknight1"></div>
+									</div></td>
+								<td><div id="bbishop1home">
+										<div class="glyphicon glyphicon-bishop black" id="bbishop1"></div>
+									</div></td>
+								<td><div id="bkinghome">
+										<div class="glyphicon glyphicon-king black" id="bking"></div>
+									</div></td>
+								<td><div id="bqueenhome">
+										<div class="glyphicon glyphicon-queen black" id="bqueen"></div>
+									</div></td>
+								<td><div id="bbishop2home">
+										<div class="glyphicon glyphicon-bishop black" id="bbishop2"></div>
+									</div></td>
+								<td><div id="bknight2home">
+										<div class="glyphicon glyphicon-knight black" id="bknight2"></div>
+									</div></td>
+								<td><div id="btower2home">
+										<div class="glyphicon glyphicon-tower black" id="btower2"></div>
+									</div></td>
+							</tr>
+							<tr>
+								<td><div id="bpawn1home">
+										<div class="glyphicon glyphicon-pawn black" id="bpawn1"></div>
+									</div></td>
+								<td><div id="bpawn2home">
+										<div class="glyphicon glyphicon-pawn black" id="bpawn2"></div>
+									</div></td>
+								<td><div id="bpawn3home">
+										<div class="glyphicon glyphicon-pawn black" id="bpawn3"></div>
+									</div></td>
+								<td><div id="bpawn4home">
+										<div class="glyphicon glyphicon-pawn black" id="bpawn4"></div>
+									</div></td>
+								<td><div id="bpawn5home">
+										<div class="glyphicon glyphicon-pawn black" id="bpawn5"></div>
+									</div></td>
+								<td><div id="bpawn6home">
+										<div class="glyphicon glyphicon-pawn black" id="bpawn6"></div>
+									</div></td>
+								<td><div id="bpawn7home">
+										<div class="glyphicon glyphicon-pawn black" id="bpawn7"></div>
+									</div></td>
+								<td><div id="bpawn8home">
+										<div class="glyphicon glyphicon-pawn black" id="bpawn8"></div>
+									</div></td>
+							</tr>
+						</table>
+					</div>
+				</td>
+				<td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</td>
+				<td><div id="msg"></div></td>
+			</tr>
+		</table>
+	</div>
+
+	<div id="board" class="container">
+		<table>
+			<tr>
+				<td><div class="light square" id="a1"></div></td>
+				<td><div class="dark square" id="a2"></div></td>
+				<td><div class="light square" id="a3"></div></td>
+				<td><div class="dark square" id="a4"></div></td>
+				<td><div class="light square" id="a5"></div></td>
+				<td><div class="dark square" id="a6"></div></td>
+				<td><div class="light square" id="a7"></div></td>
+				<td><div class="dark square" id="a8"></div></td>
+			</tr>
+			<tr>
+				<td><div class="dark square" id="b1"></div></td>
+				<td><div class="light square" id="b2"></div></td>
+				<td><div class="dark square" id="b3"></div></td>
+				<td><div class="light square" id="b4"></div></td>
+				<td><div class="dark square" id="b5"></div></td>
+				<td><div class="light square" id="b6"></div></td>
+				<td><div class="dark square" id="b7"></div></td>
+				<td><div class="light square" id="b8"></div></td>
+			</tr>
+			<tr>
+				<td><div class="light square" id="c1"></div></td>
+				<td><div class="dark square" id="c2"></div></td>
+				<td><div class="light square" id="c3"></div></td>
+				<td><div class="dark square" id="c4"></div></td>
+				<td><div class="light square" id="c5"></div></td>
+				<td><div class="dark square" id="c6"></div></td>
+				<td><div class="light square" id="c7"></div></td>
+				<td><div class="dark square" id="c8"></div></td>
+			</tr>
+			<tr>
+				<td><div class="dark square" id="d1"></div></td>
+				<td><div class="light square" id="d2"></div></td>
+				<td><div class="dark square" id="d3"></div></td>
+				<td><div class="light square" id="d4"></div></td>
+				<td><div class="dark square" id="d5"></div></td>
+				<td><div class="light square" id="d6"></div></td>
+				<td><div class="dark square" id="d7"></div></td>
+				<td><div class="light square" id="d8"></div></td>
+			</tr>
+			<tr>
+				<td><div class="light square" id="e1"></div></td>
+				<td><div class="dark square" id="e2"></div></td>
+				<td><div class="light square" id="e3"></div></td>
+				<td><div class="dark square" id="e4"></div></td>
+				<td><div class="light square" id="e5"></div></td>
+				<td><div class="dark square" id="e6"></div></td>
+				<td><div class="light square" id="e7"></div></td>
+				<td><div class="dark square" id="e8"></div></td>
+			</tr>
+			<tr>
+				<td><div class="dark square" id="f1"></div></td>
+				<td><div class="light square" id="f2"></div></td>
+				<td><div class="dark square" id="f3"></div></td>
+				<td><div class="light square" id="f4"></div></td>
+				<td><div class="dark square" id="f5"></div></td>
+				<td><div class="light square" id="f6"></div></td>
+				<td><div class="dark square" id="f7"></div></td>
+				<td><div class="light square" id="f8"></div></td>
+			</tr>
+			<tr>
+				<td><div class="light square" id="g1"></div></td>
+				<td><div class="dark square" id="g2"></div></td>
+				<td><div class="light square" id="g3"></div></td>
+				<td><div class="dark square" id="g4"></div></td>
+				<td><div class="light square" id="g5"></div></td>
+				<td><div class="dark square" id="g6"></div></td>
+				<td><div class="light square" id="g7"></div></td>
+				<td><div class="dark square" id="g8"></div></td>
+			</tr>
+			<tr>
+				<td><div class="dark square" id="h1"></div></td>
+				<td><div class="light square" id="h2"></div></td>
+				<td><div class="dark square" id="h3"></div></td>
+				<td><div class="light square" id="h4"></div></td>
+				<td><div class="dark square" id="h5"></div></td>
+				<td><div class="light square" id="h6"></div></td>
+				<td><div class="dark square" id="h7"></div></td>
+				<td><div class="light square" id="h8"></div></td>
+			</tr>
+		</table>
+	</div>
+
+	<div id="whome" class="container">
+		<table>
+			<tr>
+				<td><div id="wpawn1home">
+						<div class="glyphicon glyphicon-pawn white" id="wpawn1"></div>
+					</div></td>
+				<td><div id="wpawn2home">
+						<div class="glyphicon glyphicon-pawn white" id="wpawn2"></div>
+					</div></td>
+				<td><div id="wpawn3home">
+						<div class="glyphicon glyphicon-pawn white" id="wpawn3"></div>
+					</div></td>
+				<td><div id="wpawn4home">
+						<div class="glyphicon glyphicon-pawn white" id="wpawn4"></div>
+					</div></td>
+				<td><div id="wpawn5home">
+						<div class="glyphicon glyphicon-pawn white" id="wpawn5"></div>
+					</div></td>
+				<td><div id="wpawn6home">
+						<div class="glyphicon glyphicon-pawn white" id="wpawn6"></div>
+					</div></td>
+				<td><div id="wpawn7home">
+						<div class="glyphicon glyphicon-pawn white" id="wpawn7"></div>
+					</div></td>
+				<td><div id="wpawn8home">
+						<div class="glyphicon glyphicon-pawn white" id="wpawn8"></div>
+					</div></td>
+			</tr>
+			<tr>
+				<td><div id="wtower1home">
+						<div class="glyphicon glyphicon-tower  white" id="wtower1"></div>
+					</div></td>
+				<td><div id="wknight1home">
+						<div class="glyphicon glyphicon-knight white" id="wknight1"></div>
+					</div></td>
+				<td><div id="wbishop1home">
+						<div class="glyphicon glyphicon-bishop white" id="wbishop1"></div>
+					</div></td>
+				<td><div id="wkinghome">
+						<div class="glyphicon glyphicon-king   white" id="wking"></div>
+					</div></td>
+				<td><div id="wqueenhome">
+						<div class="glyphicon glyphicon-queen  white" id="wqueen"></div>
+					</div></td>
+				<td><div id="wbishop2home">
+						<div class="glyphicon glyphicon-bishop white" id="wbishop2"></div>
+					</div></td>
+				<td><div id="wknight2home">
+						<div class="glyphicon glyphicon-knight white" id="wknight2"></div>
+					</div></td>
+				<td><div id="wtower2home">
+						<div class="glyphicon glyphicon-tower  white" id="wtower2"></div>
+					</div></td>
+			</tr>
+		</table>
+	</div>
+</body>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+<script type="text/javascript"
+	src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<!-- Bootstrap -->
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<!-- Latest compiled and minified JavaScript -->
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+	integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+	crossorigin="anonymous"></script>
+
+<script type="text/javascript">
+	// regular javascript way of adding an event listener
+	document.getElementById("new").addEventListener("click", newGame, false);
+	
+	// jQuery way of adding an event listener
+	$(".square").click(function() {
+		console.log("square clicked");
+		getSelected($(this));
+	});
+//############################################################
+	// variables for game play
+	var turn = "white"; // whose turn it is
+	var source = null; // active piece in focus
+	var destination = null; // the destination square (second click) deprecated
+	var possiblemoves = [];
+	var possibleattacks = [];
+	var whitepawnsfirst = [ 0, 0, 0, 0, 0, 0, 0, 0 ];
+	var blackpawnsfirst = [ 0, 0, 0, 0, 0, 0, 0, 0 ];
+
+//############################################################	
+	// this starts the gameplay, is the function assigned to the click listener
+	function getSelected(square) {
+		var piece = square.children(); // get the piece in the square
+		// no piece in clicked square
+		if (piece.attr("id") == undefined) {
+			console.log("no piece here");
+			if (source !== null) {
+				// source piece has been chosen
+				// check if square is valid move, possiblemoves
+				console.log("source piece: " + source.attr("id"));
+				if (isPossibleMove(square)) {
+					// move ok, move, reset variables, end turn
+					console.log("this move is ok: " + isPossibleMove(square));
+					// ### move called here
+					if (isLegalMove(source, square)) {
+
+						move(source, square);
+					} else
+						alert("Cannot move into check");
+				}
+				// next turn
+			}
+		} else { // there is a piece in clicked square
+			console.log(piece.attr("id") + " is in this square");
+			removeHighlight();
+			// if clicked on own team piece
+			//check if piece is the player's color
+			if (piece.attr("id").charAt(0) == turn.charAt(0)) {
+				resetVars();
+				source = piece;
+				getAvailableMoves(piece, square, turn);
+				// highlight the squares for possible moves and attacks
+				addHighlight();
+				console.log("possiblemoves: " + possiblemoves);
+				console.log("possibleattacks: " + possibleattacks);
+			} else { // the (second) clicked piece is the enemy
+				console.log("this piece is the enemy");
+				for (var i = 0; i < possibleattacks.length; i++) {
+					if (possibleattacks[i] == square.attr("id")) {
+						// ### attack called here
+						attack(square); // piece.attr needs to be the square id
+					}
+				}
+			}
+		}
+	}
+//############################################################	
+	// adds a highlight to the possible moves and possible 
+	// attack for selected(source) piece
+//############################################################
+	function addHighlight() {
+		for (var i = 0; i < possiblemoves.length; i++) {
+			var div = $("#" + possiblemoves[i]);
+			if (div.hasClass("dark"))
+				div.addClass("darkgreen");
+			else
+				div.addClass("lightgreen");
+		}
+		for (var i = 0; i < possibleattacks.length; i++) {
+			var div = $("#" + possibleattacks[i]);
+			if (div.hasClass("dark"))
+				div.addClass("darkred");
+			else
+				div.addClass("lightred");
+		}
+	}
+//############################################################
+	// removes the highlighted squares
+//############################################################
+	function removeHighlight() {
+		for (var i = 0; i < possiblemoves.length; i++) {
+			var div = $("#" + possiblemoves[i]);
+			if (div.hasClass("darkgreen"))
+				div.removeClass("darkgreen");
+			else
+				div.removeClass("lightgreen");
+		}
+		for (var i = 0; i < possibleattacks.length; i++) {
+			var div = $("#" + possibleattacks[i]);
+			if (div.hasClass("darkred"))
+				div.removeClass("darkred");
+			else
+				div.removeClass("lightred");
+		}
+	}
+//############################################################
+	// resets the variables before next turn
+//############################################################
+	function resetVars() {
+		source = null;
+		destination = null;
+		possiblemoves = [];
+		possibleattacks = [];
+	}
+
+	// changes whose turn it is
+	function nextTurn(color) {
+		if (color == "white") {
+			turn = "black";
+		} else {
+			turn = "white";
+		}
+	}
+//############################################################
+	// check to see if there is a piece there 
+	// only used for pawn available moves
+	// id is the id for a square like "d5"
+//############################################################
+	function hasPiece(id) {
+		var piece = $("#" + id).children();
+		if (piece.attr("id") == undefined)
+			return false;
+		return true;
+	}
+//############################################################
+	// get the available moves for the piece in the square
+//############################################################
+	function getAvailableMoves(piece, square, color) {
+		console.log("get available moves called");
+		// user clicked on own piece 
+		// var array of available possiblemoves/possibleattacks
+		// determine type of piece
+		var possible = null;
+		var position = square.attr("id");
+		var id = piece.attr("id");
+		var pawn = new RegExp("pawn");
+		var tower = new RegExp("tower");
+		var knight = new RegExp("knight");
+		var bishop = new RegExp("bishop");
+		var king = new RegExp("king");
+		var queen = new RegExp("queen");
+		if (pawn.test(id)) {
+			var pawnIndex = id[5]; // used to check for first move
+			var pawnFirst = [];
+			var upBlock = false;
+			var up = squareUp(position, 1);
+			var up2 = squareUp(position, 2);
+			var upLeft = squareUpLeft(position, 1);
+			var upRight = squareUpRight(position, 1);
+			if (id[0] == "w")
+				pawnFirst = whitepawnsfirst;
+			else {
+				pawnFirst = blackpawnsfirst;
+				up = squareDown(position, 1);
+				up2 = squareDown(position, 2);
+				upLeft = squareDownLeft(position, 1);
+				upRight = squareDownRight(position, 1);
+			}
+			// get possible moves
+			if (isOnBoard(up))
+				if (!hasPiece(up))
+					possiblemoves.push(up);
+				else
+					upBlock = true; // cannot move 2 spaces
+			if (!upBlock && isOnBoard(up2) && (pawnFirst[pawnIndex] == 0))
+				possiblemoves.push(up2);
+			// get possible attacks
+			if (isOnBoard(upLeft))
+				if (hasPiece(upLeft) && !isMine(upLeft))
+					possibleattacks.push(upLeft);
+			if (isOnBoard(upRight))
+				if (hasPiece(upRight) && !isMine((upRight)))
+					possibleattacks.push(upRight);
+		}
+		if (tower.test(id) || queen.test(id)) { // towers can move/attack horizontal and vertical
+			// loop 7 times in four directions
+			// if possible move isMine or is off the board dont add to moves list end loop
+			// if possible has enemy piece add to attack array (isOccupied) end loop
+
+			var leftBlock = false;
+			var rightBlock = false;
+			var upBlock = false;
+			var downBlock = false;
+			var left = null;
+			var right = null;
+			var up = null;
+			var down = null;
+			for (var i = 1; i < 8; i++) { // the whole length of the board 
+				if (!leftBlock) {
+					left = squareLeft(position, i);
+					if (isOnBoard(left))
+						if (isOccupied(left))
+							leftBlock = true;
+				}
+				if (!rightBlock) {
+					right = squareRight(position, i);
+					if (isOnBoard(right))
+						if (isOccupied(right))
+							rightBlock = true;
+				}
+				if (!upBlock) {
+					up = squareUp(position, i);
+					if (isOnBoard(up))
+						if (isOccupied(up))
+							upBlock = true;
+				}
+				if (!downBlock) {
+					down = squareDown(position, i);
+					if (isOnBoard(down))
+						if (isOccupied(down))
+							downBlock = true;
+				}
+			}
+		}
+		if (knight.test(id)) {
+			// if possible move has own piece or is off the board dont add to moves list
+			// if possible has enemy piece add to attack array (isOccupied) 
+			// get the 8 squares maually and test if isMine if not then isOccupied.
+			var uur = squareUp(position, 2);
+			uur = squareRight(uur, 1); // up,up,rt
+			var uul = squareUp(position, 2);
+			uul = squareLeft(uul, 1); // up,up,lt
+			var llu = squareLeft(position, 2);
+			llu = squareUp(llu, 1); // left,left,up
+			var lld = squareLeft(position, 2);
+			lld = squareDown(lld, 1); // left,left,down
+			var rru = squareRight(position, 2);
+			rru = squareUp(rru, 1); // rt,rt,up
+			var rrd = squareRight(position, 2);
+			rrd = squareDown(rrd, 1); // rt,rt,down
+			var ddl = squareDown(position, 2);
+			ddl = squareLeft(ddl, 1); // down,down,lt
+			var ddr = squareDown(position, 2);
+			ddr = squareRight(ddr, 1); // down,down,rt
+			var jumps = [ uur, uul, llu, lld, rru, rrd, ddl, ddr ];
+			for (var i = 0; i < jumps.length; i++) {
+				if (isOnBoard(jumps[i])) {
+					isOccupied(jumps[i]);
+				}
+			}
+
+		}
+		if (bishop.test(id) || queen.test(id)) {
+			var upLeftBlock = false;
+			var upRightBlock = false;
+			var downLeftBlock = false;
+			var downRightBlock = false;
+			var upLeft = null;
+			var upRight = null;
+			var downLeft = null;
+			var downRight = null;
+			for (var i = 1; i < 8; i++) { // the whole length of the board 
+				if (!upLeftBlock) {
+					upLeft = squareUpLeft(position, i);
+					if (isOnBoard(upLeft))
+						if (isOccupied(upLeft))
+							upLeftBlock = true;
+				}
+				if (!upRightBlock) {
+					upRight = squareUpRight(position, i);
+					if (isOnBoard(upRight))
+						if (isOccupied(upRight))
+							upRightBlock = true;
+				}
+				if (!downLeftBlock) {
+					downLeft = squareDownLeft(position, i);
+					if (isOnBoard(downLeft))
+						if (isOccupied(downLeft))
+							downLeftBlock = true;
+				}
+				if (!downRightBlock) {
+					downRight = squareDownRight(position, i);
+					if (isOnBoard(downRight))
+						if (isOccupied(downRight))
+							downRightBlock = true;
+				}
+			}
+		}
+		if (king.test(id)) {
+			// get each adjacent square 
+			// test for isOnBoard and iOccupied
+			var u = squareUp(position, 1);
+			var d = squareDown(position, 1);
+			var l = squareLeft(position, 1);
+			var r = squareRight(position, 1);
+			var ur = squareUpRight(position, 1);
+			var ul = squareUpLeft(position, 1);
+			var dr = squareDownRight(position, 1);
+			var dl = squareDownLeft(position, 1);
+			var adj = [ u, d, l, r, ur, ul, dr, dl ];
+			for (var i = 0; i < adj.length; i++) {
+				if (isOnBoard(adj[i])) {
+					isOccupied(adj[i]);
+				}
+			}
+		}
+
+		//	var test = "a1";
+		//	var charCode = test.charCodeAt(0) + 1;
+		//	var newChar = String.fromCharCode(charCode);
+		//	console.log(charCode);
+		//	console.log(newChar);
+		//
+		//	var test = "b2";
+		//	console.log(parseInt(test[1]) + 1);
+
+	}
+//############################################################
+	// checks to see if the string for a square is on the board
+//############################################################
+	function isOnBoard(id) {
+		var row = parseInt(id[1]); // legal is 1-8
+		var col = id.charCodeAt(0); // legal charCode is 97-104 (a-h)
+		if (id.length > 2)
+			return false;
+		if (row > 0 && row<9 && col>96 && col < 105)
+			return true;
+		return false;
+	}
+//############################################################
+	// checks to see if the square is a possible move for source piece
+//############################################################
+	function isPossibleAttack(square) {
+		for (var i = 0; i < possibleattacks.length; i++) {
+			if (possibleattacks[i] == square.attr("id")) {
+				return true;
+			}
+		}
+		return false;
+	}
+//############################################################
+	// checks to see if the square is a possible move for source piece
+//############################################################
+	function isPossibleMove(square) {
+		console.log("entered isPossibleMove: " + square.attr("id"));
+		console.log("possiblemoves: " + possiblemoves);
+		for (var i = 0; i < possiblemoves.length; i++) {
+			if (possiblemoves[i] == square.attr("id")) {
+				return true;
+			}
+		}
+		return false;
+	}
+//############################################################
+	// checks to see if the div id is occupied by a piece
+	// also populate the possiblemoves/possibleattacks arrays
+	// this will run on the second click after a player has 
+	// selected his/her own piece
+//############################################################
+	function isOccupied(possible) {
+		console.log("entered isOccupied: " + possible)
+		var piece = $("#" + possible).children();
+		if (piece.attr("id") == undefined) {
+			possiblemoves.push(possible);
+			console.log("possiblemoves: " + possiblemoves);
+			return false;
+			//} else if (!isMine(piece.attr("id")) && !isPawn(source)) { // if source piece is a pawn, the attack is different
+		} else if (!isMine(possible) && !isPawn(source)) {
+			console.log("isOccupied- source: " + source);
+			possibleattacks.push(possible);
+			console.log("possibleattacks: " + possibleattacks);
+			return true;
+		} else {
+			return true;
+		}
+	}
+//############################################################
+	// is this a pawn?
+//############################################################
+	function isPawn(piece) {
+		var id = piece.attr("id");
+		var pawn = new RegExp("pawn");
+		return pawn.test(id);
+	}
+//############################################################
+	// is this piece mine?
+//############################################################
+	function isMine(possible) { // possible is a string for square
+		console.log("entered is mine: " + possible)
+		var pieceDiv = $("#" + possible).children();
+		var pieceId = pieceDiv.attr("id");
+		if (pieceId.charAt(0) == turn.charAt(0)) {
+			return true;
+		}
+		return false;
+	}
+//############################################################
+	// takes a square string like "b2" and returns neighboring 
+	// square respectively
+//############################################################
+	function squareUp(position, dist) {
+		var charCode = position.charCodeAt(0) - dist;
+		var newChar = String.fromCharCode(charCode);// converts back to character
+		return newChar + position[1]; // 1 is index of column like "a" 
+	}
+	function squareDown(position, dist) {
+		var charCode = position.charCodeAt(0) + dist;
+		var newChar = String.fromCharCode(charCode);// converts back to character
+		return newChar + position[1]; // 1 is index of column like "a"
+	}
+	function squareLeft(position, dist) {
+		var column = parseInt(position.charAt(1)) - dist;//parse int here
+		return position.charAt(0) + column;
+	}
+	function squareRight(position, dist) {
+		var column = parseInt(position.charAt(1)) + dist; //parse int here
+		return position.charAt(0) + column;
+	}
+	function squareUpRight(position, dist) { // d4->c5
+		var charCode = position.charCodeAt(0) - dist;
+		var newChar = String.fromCharCode(charCode);// converts back to character
+		var column = parseInt(position.charAt(1)) + dist; //parse int here
+		return newChar + column;
+	}
+	function squareUpLeft(position, dist) {
+		var charCode = position.charCodeAt(0) - dist;
+		var newChar = String.fromCharCode(charCode);// converts back to character
+		var column = parseInt(position.charAt(1)) - dist; //parse int here
+		return newChar + column;
+	}
+	function squareDownRight(position, dist) {
+		var charCode = position.charCodeAt(0) + dist;
+		var newChar = String.fromCharCode(charCode);// converts back to character
+		var column = parseInt(position.charAt(1)) + dist; //parse int here
+		return newChar + column;
+	}
+	function squareDownLeft(position, dist) {
+		var charCode = position.charCodeAt(0) + dist;
+		var newChar = String.fromCharCode(charCode);// converts back to character
+		var column = parseInt(position.charAt(1)) - dist; //parse int here
+		return newChar + column;
+	}
+//############################################################
+	// sets up a new chess board
+//############################################################
+	function newGame() {
+		console.log("newgame");
+		// this dont work quite right yet b/c the container padding
+		// move($(""), $("")); 
+		$("#wking").css({"color": "#ffffff"});
+		$("#bking").css({"color": "#000000"});
+		removeHighlight();
+		$("#msg").text("");
+		// black nobels
+		$("#a1").append($("#btower1"));
+		$("#a2").append($("#bknight1"));
+		$("#a3").append($("#bbishop1"));
+		$("#a4").append($("#bqueen"));
+		$("#a5").append($("#bking"));
+		$("#a6").append($("#bbishop2"));
+		$("#a7").append($("#bknight2"));
+		$("#a8").append($("#btower2"));
+		// black ponds
+		$("#b1").append($("#bpawn1"));
+		$("#b2").append($("#bpawn2"));
+		$("#b3").append($("#bpawn3"));
+		$("#b4").append($("#bpawn4"));
+		$("#b5").append($("#bpawn5"));
+		$("#b6").append($("#bpawn6"));
+		$("#b7").append($("#bpawn7"));
+		$("#b8").append($("#bpawn8"));
+
+		// white pawns
+		$("#g1").append($("#wpawn1"));
+		$("#g2").append($("#wpawn2"));
+		$("#g3").append($("#wpawn3"));
+		$("#g4").append($("#wpawn4"));
+		$("#g5").append($("#wpawn5"));
+		$("#g6").append($("#wpawn6"));
+		$("#g7").append($("#wpawn7"));
+		$("#g8").append($("#wpawn8"));
+		// white nobels
+		$("#h1").append($("#wtower1"));
+		$("#h2").append($("#wknight1"));
+		$("#h3").append($("#wbishop1"));
+		$("#h4").append($("#wqueen"));
+		$("#h5").append($("#wking"));
+		$("#h6").append($("#wbishop2"));
+		$("#h7").append($("#wknight2"));
+		$("#h8").append($("#wtower2"));
+
+		turn = "white";
+		source = null;
+		destination = null;
+		resetVars();
+		whitepawnsfirst = [ 0, 0, 0, 0, 0, 0, 0, 0, 0 ];
+		blackpawnsfirst = [ 0, 0, 0, 0, 0, 0, 0, 0, 0 ];
+		whitePieces = [ "wpawn1", "wpawn2", "wpawn3", "wpawn4", "wpawn5",
+				"wpawn6", "wpawn7", "wpawn8", "wtower1", "wknight1",
+				"wbishop1", "wking", "wqueen", "wbishop2", "wknight2",
+				"wtower2" ];
+		blackPieces = [ "bpawn1", "bpawn2", "bpawn3", "bpawn4", "bpawn5",
+				"bpawn6", "bpawn7", "bpawn8", "btower1", "bknight1",
+				"bbishop1", "bking", "bqueen", "bbishop2", "bknight2",
+				"btower2" ];
+	
+	}
+//###########################################################
+	var whitePieces = [ "wpawn1", "wpawn2", "wpawn3", "wpawn4", "wpawn5",
+			"wpawn6", "wpawn7", "wpawn8", "wtower1", "wknight1", "wbishop1",
+			"wking", "wqueen", "wbishop2", "wknight2", "wtower2" ];
+	var blackPieces = [ "bpawn1", "bpawn2", "bpawn3", "bpawn4", "bpawn5",
+			"bpawn6", "bpawn7", "bpawn8", "btower1", "bknight1", "bbishop1",
+			"bking", "bqueen", "bbishop2", "bknight2", "btower2" ];
+//############################################################
+	// is the king for the team color in check?
+//############################################################
+	function inCheck(color) {
+		attacks = [];
+		moves = [];
+		var result = false;
+		console.log("entered inCheck: " + color);
+		// loop through all the opponent's pieces for possible attacks
+		// if king is in the square of possible attacks return true
+		// getAvailableMoves(piece,square) both the div
+		// get the square where the king is
+		var enemy = [];
+		var king = null;
+		var kingsq = null;
+		var kingsqid = null;
+		if (color == "white") {
+			king = $("#wking");
+			enemy = blackPieces;
+		} else {
+			king = $("#bking");
+			enemy = whitePieces;
+		}
+		kingsq = king.parent();
+		kingsqid = kingsq.attr("id");
+		for (var i = 0; i < enemy.length; i++) {
+			getMoves(enemy[i]);
+		}
+		for (var j = 0; j < attacks.length; j++) {
+			if (attacks[j] == kingsqid)
+				result = true;
+		}
+
+		attacks = [];
+		moves = [];
+		return result;
+	}
+//############################################################
+	// checks to see if the player is in check mate
+//############################################################
+	function inCheckMate(color) {
+		attacks = [];
+		moves = [];
+		var result = true;
+		console.log("entered inCheckMate: " + color);
+		// loop through all the king's possible moves
+		// if not check return false
+		var kingDiv = null;
+		var kingId = null;
+		if (color == "white") {
+			kingId = "wking";
+			kingDiv = $("#wking");
+		} else {
+			kingId = "bking";
+			kingDiv = $("#bking");
+		}
+		console.log("inCheckMate: kingDiv: " + kingDiv + " kind id: " + kingId);
+		getMoves(kingId); // this will fill moves and attacks for the king
+		console.log("inCheckMate-attacks: " + attacks + " moves: " + moves);
+		for (var i = 0; i < moves.length; i++) {
+			console.log("moves: " + moves + "#moves.length " + moves.length);
+			var sqId = moves[i];
+			var sqDiv = $("#" + sqId);
+			console.log("inCheckMate-moves loop: sqId " + sqId + " sqDivID: "
+					+ sqDiv.attr("id"));
+			if (isLegalMove(kingDiv, sqDiv)) {
+				console.log("isLegalMove: kingDiv ID " + kingDiv.attr("id")
+						+ " sqDiv ID: " + sqDiv.attr("id")
+						+ isLegalMove(kingDiv, sqDiv));
+				return false;
+			}
+		}
+		// if king can attack out of check return false
+		// !bug here about king not being able to attack out of check!
+		for (var i = 0; i < attacks.length; i++) {
+			var sqId = attacks[i];
+			var sqDiv = $("#" + sqId);
+			if (isLegalAttack(kingDiv, sqDiv, color))
+				return false;
+		}
+
+		// check if your homies can get you out of checkmate
+		attacks = [];
+		moves = [];
+		var homies = [];
+		if (color == "white")
+			homies = whitePieces;
+		else
+			homies = blackPieces;
+		for (var i = 0; i < homies.length; i++) {
+			var homie = homies[i];
+			var homieDiv = $("#" + homie);
+			getMoves(homie);
+			// make sure your homie's moves can't get you out of checkmate
+			for (var j = 0; j < moves.length; j++) {
+				var sqId = moves[j];
+				var sqDiv = $("#" + sqId);
+				if (isLegalMove(homieDiv, sqDiv))
+					return false;
+			}
+			// make sure your homie's attacks can't get you out of checkmate
+			for (var k = 0; k < attacks.length; k++) {
+				var sqId = attacks[k];
+				var sqDiv = $("#" + sqId);
+				if (isLegalMove(homieDiv, sqDiv))
+					return false;
+			}
+		}
+		return result;
+	}
+//############################################################
+	// check to see if the attack gets the player out of check
+//############################################################
+	function isLegalAttack(start, end) {
+		// start is the piece div, end is the target square div
+		console.log("entered isLegalAttack");
+		var result = true;
+		var attackingDiv = start.parent();
+		var victim = end.children().attr("id");
+		var victimHomeId = victim + "home";
+		var index = null;
+		$("#" + victimHomeId).append($("#" + victim)); // send the victim home
+		end.append(start); //make the move
+		// remove the victim from list
+
+		if (victim.charAt(0) == "b") {
+			index = blackPieces.indexOf(victim);
+			console
+					.log("index of: " + victim + " in black pieces is: "
+							+ index);
+			blackPieces.splice(index, 1);
+		} else if (victim.charAt(0) == "w") {
+			index = whitePieces.indexOf(victim);
+			console
+					.log("index of: " + victim + " in white pieces is: "
+							+ index);
+			whitePieces.splice(index, 1);
+		}
+		// get the color of the team
+		var team = start.attr("id");
+		if (team.charAt(0) == "w")
+			team = "white";
+		else
+			team = "black";
+		if (inCheck(team)) {
+			result = false;
+		}
+		// roll back
+		if (victim.charAt(0) == "b") {
+			blackPieces.push(victim);
+		} else if (victim.charAt(0) == "w") {
+			whitePieces.push(victim);
+		}
+		attackingDiv.append(start);
+		end.append($("#" + victim));
+		console.log("isLegalMove: " + result);
+		return result;
+	}
+//############################################################
+	// checks to see if the move puts the active player in check
+//############################################################
+	function isLegalMove(start, end) {
+		var result = true;
+		var org = start.parent();
+		end.append(start); //make the move
+		// get the color of the team
+		var team = start.attr("id");
+		if (team.charAt(0) == "w")
+			team = "white";
+		else
+			team = "black";
+		if (inCheck(team)) {
+			result = false;
+
+		}
+		org.append(start);
+		//console.log("isLegalMove: " + result);
+		return result;
+	}
+//############################################################
+	// the attack or take piece function
+//############################################################
+	function attack(square) {
+		// send piece in square home
+		// move source to square
+		// clear variables, enemy turn.
+		console.log("entered takePiece: " + square);
+		console.log("entered takePiece: " + square.attr("id"));
+		// get the id of the piece being taken
+		var piece = square.children().attr("id");
+		var home = piece + "home";
+
+		console.log("taken: " + $("#" + piece).attr("id"));
+		console.log("taken home: " + home);
+		console.log("taken by: source attr: " + source.attr("id"));
+		// ### move called here		
+		//move($("#" + piece), $("#" + home)); 
+		// cant call move twice b/c changes turn
+		// so use append to send piece home
+		$("#" + home).append($("#" + piece));
+		move(source, square);
+		// this is a fix cause turn gets flipped and here is how to fix it
+		// might not be so good but works 
+		console.log("white pieces left:");
+		console.log(whitePieces);
+		console.log("black pieces left:");
+		console.log(blackPieces);
+		console.log(piece.charAt(0));
+		if (piece.charAt(0) == "b") {
+			var bindex = blackPieces.indexOf(piece);
+			console
+					.log("index of: " + piece + " in black pieces is: "
+							+ bindex);
+			blackPieces.splice(bindex, 1);
+		} else if (piece.charAt(0) == "w") {
+			var windex = whitePieces.indexOf(piece);
+			console
+					.log("index of: " + piece + " in white pieces is: "
+							+ windex);
+			whitePieces.splice(windex, 1);
+		}
+		console.log("white pieces left:");
+		console.log(whitePieces);
+		console.log("black pieces left:");
+		console.log(blackPieces);
+	}
+//############################################################
+	// the move function
+	// this is where the isCheck and isCheckMate is called
+	// also jQuery for altering css font to red for king
+//############################################################
+	function move(start, end) {
+		removeHighlight();
+		end.append(start);
+		resetVars();
+		// if move results in my king being in check
+		// move back b/c illegal move
+		// set the pawns first move
+		var id = start.attr("id");
+		var pawn = new RegExp("pawn");
+		if (pawn.test(id)) { // if this piece is a pawn mark it has moved
+			var pawnIndex = id[5];
+			if (turn == "white") {
+				whitepawnsfirst[pawnIndex] = 1;
+			} else {
+				blackpawnsfirst[pawnIndex] = 1;
+			}
+		}
+		var opponent = null;
+		if (turn == "white") {
+			opponent = "black";
+		} else
+			opponent = "white";
+		if (inCheck(opponent))
+			if (inCheckMate(opponent)){
+				if(opponent == "white")
+					$("#wking").css({"color": "#FF0000"});
+				else
+					$("#bking").css({"color": "#FF0000"});
+				alert("Checkmate!");
+				$("#msg").text("Checkmate");
+			}
+			else{
+				alert("Check!");
+				$("#msg").text("Check");
+			}
+		nextTurn(turn);
+		$("#msg").text("move: " + start.attr("id") + " to "
+				+ end.attr("id"));
+		console.log("move called: " + start.attr("id") + " to "
+				+ end.attr("id"));
+		// # this code is a failed attempt to implement a slide on move :o(
+		// find the top/left difference and multiply by -1 b/c 0,0 is top left
+		// add "px" to allow the css attribute to accept the value
+
+		//var topdif = -1*(start.offset().top - end.offset().top) + "px";
+		//var leftdif = -1*(start.offset().left - end.offset().left) + "px";
+
+		//start.animate({left:leftdif, top:topdif}, { duration: 1000, complete: function() {setTimeout(end.append(start),1000);} });
+
+		//start.animate({left:leftdif, top:topdif}, {	duration: 1000,
+		//											complete: function(){ 
+		//													 setTimeout(function(){ end.append(start) }, 1000);} });
+	}
+//############################################################
+	// is the piece the same color?
+	// possible is a string for square, id is string for a piece
+//############################################################
+	function isSameColor(sq, id) { 
+		var pieceDiv = $("#" + sq);
+		pieceDiv = pieceDiv.children();
+		var pieceId = pieceDiv.attr("id");
+		if (pieceId.charAt(0) == id.charAt(0)) {
+			return true;
+		}
+		return false;
+
+	}
+//############################################################
+	// get the available moves for the piece in the square
+	// not used yet
+	// need these to be global
+	var attacks = [];
+	var moves = [];
+//############################################################
+	// get the available moves and attacks for a given string id of a piece
+	// this is almost duplicate code for getAvailableMoves() above 
+	// but had problems when used to calculate the king checks
+//############################################################
+	function getMoves(id) {
+		//console.log("get moves called for: " + id);
+		// get the attacks for a piece id
+		var idDiv = $("#" + id);
+		var squareDiv = idDiv.parent();
+		var squareId = squareDiv.attr("id");
+		var pawn = new RegExp("pawn");
+		var tower = new RegExp("tower");
+		var knight = new RegExp("knight");
+		var bishop = new RegExp("bishop");
+		var king = new RegExp("king");
+		var queen = new RegExp("queen");
+		if (pawn.test(id)) {
+			var pawnIndex = id[5]; // used to check for first move
+			var pawnFirst = [];
+			var upBlock = false;
+			var up = squareUp(squareId, 1);
+			var up2 = squareUp(squareId, 2);
+			var upLeft = squareUpLeft(squareId, 1);
+			var upRight = squareUpRight(squareId, 1);
+			if (id[0] == "w")
+				pawnFirst = whitepawnsfirst;
+			else {
+				pawnFirst = blackpawnsfirst;
+				up = squareDown(squareId, 1);
+				up2 = squareDown(squareId, 2);
+				upLeft = squareDownLeft(squareId, 1);
+				upRight = squareDownRight(squareId, 1);
+			}
+			// get possible moves
+			if (isOnBoard(up))
+				if (!hasPiece(up))
+					moves.push(up);
+				else
+					upBlock = true; // cannot move 2 spaces
+			if (!upBlock && isOnBoard(up2) && (pawnFirst[pawnIndex] == 0))
+				moves.push(up2);
+			// get possible attacks
+			if (isOnBoard(upLeft))
+				if (hasPiece(upLeft) && !isSameColor(upLeft, id))
+					possibleattacks.push(upLeft);
+			if (isOnBoard(upRight)) {
+				if (hasPiece(upRight) && !isSameColor(upRight, id))
+					possibleattacks.push(upRight);
+			}
+		}
+		if (tower.test(id) || queen.test(id)) { // towers can move/attack horizontal and vertical
+			// loop 7 times in four directions
+			// if possible move isMine or is off the board dont add to moves list end loop
+			// if possible has enemy piece add to attack array (isOccupied) end loop
+
+			var leftBlock = false;
+			var rightBlock = false;
+			var upBlock = false;
+			var downBlock = false;
+			var left = null;
+			var right = null;
+			var up = null;
+			var down = null;
+			for (var i = 1; i < 8; i++) { // the whole length of the board 
+				if (!leftBlock) {
+					left = squareLeft(squareId, i);
+					if (isOnBoard(left)) {
+						if (hasPiece(left)) {
+							if (!isSameColor(left, id))
+								attacks.push(left);
+							leftBlock = true;
+						} else
+							moves.push(left);
+					}
+				}
+				if (!rightBlock) {
+					right = squareRight(squareId, i);
+					if (isOnBoard(right)) {
+						if (hasPiece(right)) {
+							if (!isSameColor(right, id))
+								attacks.push(right);
+							rightBlock = true;
+						} else
+							moves.push(right);
+					}
+				}
+				if (!upBlock) {
+					up = squareUp(squareId, i);
+					if (isOnBoard(up)) {
+						if (hasPiece(up)) {
+							if (!isSameColor(up, id))
+								attacks.push(up);
+							upBlock = true;
+						} else
+							moves.push(up);
+					}
+				}
+				if (!downBlock) {
+					down = squareDown(squareId, i);
+					if (isOnBoard(down)) {
+						if (hasPiece(down)) {
+							if (!isSameColor(down, id))
+								attacks.push(down);
+							downBlock = true;
+						} else
+							moves.push(down);
+					}
+				}
+			}
+		}
+		if (knight.test(id)) {
+			// if possible move has own piece or is off the board dont add to moves list
+			// if possible has enemy piece add to attack array (isOccupied) 
+			// get the 8 squares maually and test if isMine if not then isOccupied.
+			var uur = squareUp(squareId, 2);
+			    uur = squareRight(uur, 1); // up,up,rt
+			var uul = squareUp(squareId, 2);
+			    uul = squareLeft(uul, 1); // up,up,lt
+			var llu = squareLeft(squareId, 2);
+			    llu = squareUp(llu, 1); // left,left,up
+			var lld = squareLeft(squareId, 2);
+			    lld = squareDown(lld, 1); // left,left,down
+			var rru = squareRight(squareId, 2);
+			    rru = squareUp(rru, 1); // rt,rt,up
+			var rrd = squareRight(squareId, 2);
+			    rrd = squareDown(rrd, 1); // rt,rt,down
+			var ddl = squareDown(squareId, 2);
+			    ddl = squareLeft(ddl, 1); // down,down,lt
+			var ddr = squareDown(squareId, 2);
+			    ddr = squareRight(ddr, 1); // down,down,rt
+			var jumps = [ uur, uul, llu, lld, rru, rrd, ddl, ddr ];
+			for (var i = 0; i < jumps.length; i++) {
+				if (isOnBoard(jumps[i])) {
+					if (hasPiece(jumps[i])) {
+						if (!isSameColor(jumps[i], id))
+							attacks.push(jumps[i]);
+					} else
+						moves.push(jumps[i]);
+				}
+			}
+		}
+		if (bishop.test(id) || queen.test(id)) {
+			var upLeftBlock = false;
+			var upRightBlock = false;
+			var downLeftBlock = false;
+			var downRightBlock = false;
+			var upLeft = null;
+			var upRight = null;
+			var downLeft = null;
+			var downRight = null;
+			for (var i = 1; i < 8; i++) { // the whole length of the board 
+				if (!upLeftBlock) {
+					upLeft = squareUpLeft(squareId, i);
+					if (isOnBoard(upLeft)) {
+						if (hasPiece(upLeft)) {
+							if (!isSameColor(upLeft, id))
+								attacks.push(upLeft);
+							upLeftBlock = true;
+						} else
+							moves.push(upLeft);
+					}
+				}
+				if (!upRightBlock) {
+					upRight = squareUpRight(squareId, i);
+					if (isOnBoard(upRight)) {
+						if (hasPiece(upRight)) {
+							if (!isSameColor(upRight, id))
+								attacks.push(upRight);
+							upRightBlock = true;
+						} else
+							moves.push(upRight);
+					}
+				}
+				if (!downLeftBlock) {
+					downLeft = squareDownLeft(squareId, i);
+					if (isOnBoard(downLeft)) {
+						if (hasPiece(downLeft)) {
+							if (!isSameColor(downLeft, id))
+								attacks.push(downLeft);
+							downLeftBlock = true;
+						} else
+							moves.push(downLeft);
+					}
+				}
+				if (!downRightBlock) {
+					downRight = squareDownRight(squareId, i);
+					if (isOnBoard(downRight)) {
+						if (hasPiece(downRight)) {
+							if (!isSameColor(downRight, id))
+								attacks.push(downRight);
+							downRightBlock = true;
+						} else
+							moves.push(downRight);
+					}
+				}
+			}
+		}
+		if (king.test(id)) {
+			// get each adjacent square 
+			// test for isOnBoard, hasPiece, and isSameColor
+			var u = squareUp(squareId, 1);
+			var d = squareDown(squareId, 1);
+			var l = squareLeft(squareId, 1);
+			var r = squareRight(squareId, 1);
+			var ur = squareUpRight(squareId, 1);
+			var ul = squareUpLeft(squareId, 1);
+			var dr = squareDownRight(squareId, 1);
+			var dl = squareDownLeft(squareId, 1);
+			var adj = [ u, d, l, r, ur, ul, dr, dl ];
+			for (var i = 0; i < adj.length; i++) {
+				if (isOnBoard(adj[i])) {
+					if (hasPiece(adj[i])) {
+						if (!isSameColor(adj[i], id))
+							attacks.push(adj[i]);
+					} else
+						moves.push(adj[i]);
+				}
+			}
+		}
+	}
+</script>
+</html>
